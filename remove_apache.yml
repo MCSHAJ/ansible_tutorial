@@ -1,29 +1,23 @@
 ---
-- name: Install Apache on CentOS 8
-  hosts: all
-  become: yes  # If root/sudo access is required
 
+- hosts: all
+  become: true
   tasks:
-    - name: Install Apache package
-      yum:
-        name: httpd
-        state: absent
 
-    - name: Start Apache service
-      service:
-        name: httpd
-        state: absent
-        enabled: yes
+  - name: install apache and php for Ubuntu servers
+    apt:
+      name:
+        - apache2
+        - libapache2-mod-php
+      state: absent
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
 
-    - name: Install PHP and Apache PHP module
-      yum:
-        name: 
-          - php
-          - php-cli
-          - php-fpm
-          - php-mysqlnd
-          - php-xml
-          - php-gd
-          - php-mbstring
-        state: absent
-
+  - name: install apache and php for CentOS servers
+    dnf:
+      name:
+        - httpd
+        - php
+      state: absent
+      update_cache: yes
+    when: ansible_distribution == "CentOS"
