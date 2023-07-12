@@ -1,0 +1,29 @@
+---
+- name: Install Apache on CentOS 8
+  hosts: all
+  become: yes  # If root/sudo access is required
+
+  tasks:
+    - name: Install Apache package
+      yum:
+        name: httpd
+        state: latest
+
+    - name: Start Apache service
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Install PHP and Apache PHP module
+      yum:
+        name: 
+          - php
+          - php-cli
+          - php-fpm
+          - php-mysqlnd
+          - php-xml
+          - php-gd
+          - php-mbstring
+        state: latest
+
