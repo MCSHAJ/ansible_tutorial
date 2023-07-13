@@ -1,2 +1,10 @@
-root@172.18.102.95
+[web_server]
+root@172.18.102.95 
 root@172.18.102.87
+
+[db_servers]
+
+
+[file_servers]
+
+ 
